@@ -1,4 +1,4 @@
-package com.example.mviexample.main
+package com.example.mviexample.ui.main
 
 import com.example.mviexample.model.A
 import com.example.mviexample.model.B

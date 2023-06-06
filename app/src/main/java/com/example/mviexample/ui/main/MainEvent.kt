@@ -1,4 +1,4 @@
-package com.example.mviexample.main
+package com.example.mviexample.ui.main
 
 sealed class MainEvent {
     object Init : MainEvent()

@@ -1,4 +1,4 @@
-package com.example.mviexample.main
+package com.example.mviexample.ui.main
 
 import androidx.lifecycle.viewModelScope
 import com.example.mviexample.AppConstants

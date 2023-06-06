@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="com.example.mviexample.main.MainViewModel" />
+            type="com.example.mviexample.ui.main.MainViewModel" />
 
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".main.MainActivity">
+        tools:context=".ui.main.MainActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
