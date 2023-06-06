@@ -4,14 +4,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.mviexample.AppConstants
 import com.example.mviexample.base.BaseViewModel
 import com.example.mviexample.util.channelToStateFlow
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainViewModel: BaseViewModel<MainState, MainEvent>() {
 
     override var currentEvent: MainEvent = MainEvent.Init
-    override val events = Channel<MainEvent>()
     override val state = events.channelToStateFlow(MainState(), ::changeState, viewModelScope)
 
     override fun changeState(current: MainState, event: MainEvent): MainState {
