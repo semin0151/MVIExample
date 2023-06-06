@@ -18,7 +18,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainState, MainEvent>(lay
 
     override fun initView() {
         bind {
-            semin.btnError.setOnClickListener {
+            layoutDefaultError.btnError.setOnClickListener {
                 viewModel.onInitEvent()
             }
         }
@@ -27,13 +27,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainState, MainEvent>(lay
     override fun render(state: MainState) {
         bind {
             if(state.isLoading) {
-                semin.root.gone()
+                layoutDefaultError.root.gone()
                 pbLoading.visible()
             } else if(state.isError) {
-                semin.root.visible()
+                layoutDefaultError.root.visible()
                 pbLoading.gone()
             } else {
-                semin.root.gone()
+                layoutDefaultError.root.gone()
                 pbLoading.gone()
                 tvTest.text = state.count.toString()
             }

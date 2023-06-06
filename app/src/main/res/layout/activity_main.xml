@@ -77,7 +77,7 @@
             android:visibility="gone" />
 
         <include layout="@layout/layout_default_error"
-            android:id="@+id/semin"
+            android:id="@+id/layoutDefaultError"
             android:visibility="gone"/>
 
     </FrameLayout>

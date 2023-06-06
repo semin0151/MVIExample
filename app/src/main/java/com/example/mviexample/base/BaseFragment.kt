@@ -26,7 +26,9 @@ abstract class BaseFragment<Binding: ViewDataBinding, State, Event>(@LayoutRes v
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData(savedInstanceState)
         initView()
+        initViewModel()
     }
 
     protected fun bind(lambda: Binding.() -> Unit) {
