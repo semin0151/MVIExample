@@ -18,8 +18,8 @@ abstract class BaseActivity<Binding: ViewDataBinding, State>(@LayoutRes val layo
         initCollect()
     }
 
-    protected fun bind(lambda: Binding.() -> Unit) {
-        lambda(binding)
+    protected fun bind(block: Binding.() -> Unit) {
+        block(binding)
     }
 
     abstract fun initView()
