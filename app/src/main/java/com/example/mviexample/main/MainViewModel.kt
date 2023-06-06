@@ -16,12 +16,12 @@ class MainViewModel: BaseViewModel<MainState, MainEvent>() {
 
     override fun changeState(current: MainState, event: MainEvent): MainState {
         return when (event) {
-            is MainEvent.Init -> current.copy(event = event)
-            is MainEvent.Normal -> current.copy(event = event)
-            is MainEvent.Loading -> current.copy(event = event)
-            is MainEvent.Increment -> current.copy(count = current.count.plus(1), event = event)
-            is MainEvent.Decrement -> current.copy(count = current.count.minus(1), event = event)
-            is MainEvent.Error -> current.copy(event = event)
+            is MainEvent.Init -> current.copy(isLoading = false, isError = false)
+            is MainEvent.Normal -> current.copy(isLoading = false, isError = false)
+            is MainEvent.Loading -> current.copy(isLoading = true, isError = false)
+            is MainEvent.Increment -> current.copy(count = current.count.plus(event.count), isLoading = false, isError = false)
+            is MainEvent.Decrement -> current.copy(count = current.count.minus(event.count), isLoading = false, isError = false)
+            is MainEvent.Error -> current.copy(isLoading = false, isError = true)
         }
     }
 
@@ -38,7 +38,7 @@ class MainViewModel: BaseViewModel<MainState, MainEvent>() {
             onEvent(MainEvent.Loading)
             apiTest(true,
                 onSuccess = {
-                    onEvent(MainEvent.Increment)
+                    onEvent(MainEvent.Increment())
                 },
                 onError = {
 
@@ -53,7 +53,7 @@ class MainViewModel: BaseViewModel<MainState, MainEvent>() {
             onEvent(MainEvent.Loading)
             apiTest(true,
                 onSuccess = {
-                    onEvent(MainEvent.Decrement)
+                    onEvent(MainEvent.Decrement())
                 },
                 onError = {
 
@@ -69,7 +69,7 @@ class MainViewModel: BaseViewModel<MainState, MainEvent>() {
 
                 },
                 onError = {
-                    onEvent(MainEvent.Error)
+                    onEvent(MainEvent.Error())
                 })
         }
     }

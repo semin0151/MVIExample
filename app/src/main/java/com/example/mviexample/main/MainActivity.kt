@@ -1,11 +1,12 @@
 package com.example.mviexample.main
 
-import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.example.mviexample.R
 import com.example.mviexample.Semin
 import com.example.mviexample.base.BaseActivity
 import com.example.mviexample.databinding.ActivityMainBinding
+import com.example.mviexample.util.gone
+import com.example.mviexample.util.visible
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -35,22 +36,16 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainState>(layoutId = R.l
 
     override fun updateView(state: MainState) {
         bind {
-            when(state.event) {
-                MainEvent.Init,
-                MainEvent.Normal,
-                MainEvent.Increment,
-                MainEvent.Decrement -> {
-                    semin.root.visibility = View.GONE
-                    pbLoading.visibility = View.GONE
-                    tvTest.text = state.count.toString()
-                }
-                MainEvent.Loading -> {
-                    semin.root.visibility = View.GONE
-                    pbLoading.visibility = View.VISIBLE
-                }
-                MainEvent.Error -> {
-                    semin.root.visibility = View.VISIBLE
-                }
+            if(state.isLoading) {
+                semin.root.gone()
+                pbLoading.visible()
+            } else if(state.isError) {
+                semin.root.visible()
+                pbLoading.gone()
+            } else {
+                semin.root.gone()
+                pbLoading.gone()
+                tvTest.text = state.count.toString()
             }
         }
     }
