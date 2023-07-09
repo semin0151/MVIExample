@@ -37,6 +37,12 @@ abstract class BaseActivity<Binding : ViewDataBinding, State, Event, SideEffect>
                     render(state)
                 }
             }
+
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.sideEffect.collect { sideEffect ->
+                    handleSideEffect(sideEffect)
+                }
+            }
         }
     }
 
