@@ -3,14 +3,18 @@ package com.example.mviexample.ui.main
 import androidx.lifecycle.viewModelScope
 import com.example.mviexample.AppConstants
 import com.example.mviexample.base.BaseViewModel
+import com.example.mviexample.base.SideEffect
 import com.example.mviexample.util.channelToStateFlow
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel: BaseViewModel<MainState, MainEvent>() {
+class MainViewModel: BaseViewModel<MainState, MainEvent, SideEffect>() {
 
     override var currentEvent: MainEvent = MainEvent.Init
     override val state = events.channelToStateFlow(MainState(), ::changeState, viewModelScope)
+    override val sideEffect: Flow<SideEffect> = sideEffects.receiveAsFlow()
 
     override fun changeState(current: MainState, event: MainEvent): MainState {
         return when (event) {
@@ -62,6 +66,7 @@ class MainViewModel: BaseViewModel<MainState, MainEvent>() {
     fun onErrorEvent() {
         viewModelScope.launch {
             onEvent(MainEvent.Loading)
+            onSideEffect(SideEffect.Toast("error!!"))
             apiTest(false,
                 onSuccess = {
 
